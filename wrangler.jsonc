@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "world-time-foxtang",
+  "compatibility_date": "2026-09-12",
+  "assets": {
+    "directory": "./public"
+  },
+  "routes": [
+    {
+      "pattern": "worldtime.foxtang.com",
+      "custom_domain": true
+    }
+  ]
+}
