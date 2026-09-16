@@ -85,11 +85,12 @@
     .now { text-align: right; color: var(--muted); font: 400 11px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; white-space: nowrap; text-transform: uppercase; }
     .now b { display: block; color: var(--text); font-size: 14px; font-weight: 500; letter-spacing: .04em; }
     .theme-toggle {
-      display: grid; place-items: center; width: 46px; height: 46px; flex: 0 0 auto;
-      border: 1px solid var(--field-border); border-radius: 14px; background: var(--card-solid);
+      display: grid; place-items: center; width: 52px; height: 38px; flex: 0 0 auto;
+      border: 1px solid var(--field-border); border-radius: 999px; background: var(--card-solid);
       color: var(--text); cursor: pointer; box-shadow: var(--shadow); transition: .18s;
     }
-    .theme-toggle:hover { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(20, 115, 230, .12); }
+    .theme-toggle:hover { border-color: var(--blue); background: rgba(20, 115, 230, .08); box-shadow: var(--shadow); }
+    html[data-theme="dark"] .theme-toggle:hover { background: rgba(96, 165, 250, .14); }
     .theme-toggle svg { width: 20px; height: 20px; }
     .theme-toggle .icon-sun { display: none; }
     .theme-toggle .icon-moon { display: block; }
