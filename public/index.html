@@ -81,15 +81,15 @@
     .eyebrow { display: block; margin: 0 0 10px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     h1 { margin: 0; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.05; letter-spacing: -.04em; font-weight: 700; }
     .sub { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
-    .side { display: flex; align-items: center; gap: 14px; }
-    .now { text-align: right; color: var(--muted); font: 400 11px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; white-space: nowrap; text-transform: uppercase; }
-    .now b { display: block; color: var(--text); font-size: 14px; font-weight: 500; letter-spacing: .04em; }
+    .side { display: flex; flex-direction: row; align-items: stretch; border: 1px solid var(--field-border); border-radius: 999px; background: var(--card-solid); box-shadow: var(--shadow); overflow: hidden; }
+    .city-count { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px 15px 7px; border-right: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1; white-space: nowrap; }
+    .city-count strong { color: var(--text); font-size: 15px; font-weight: 600; line-height: 1; }
     .theme-toggle {
-      display: grid; place-items: center; width: 52px; height: 38px; flex: 0 0 auto;
-      border: 1px solid var(--field-border); border-radius: 999px; background: var(--card-solid);
-      color: var(--text); cursor: pointer; box-shadow: var(--shadow); transition: .18s;
+      display: grid; place-items: center; width: 48px; height: 42px; flex: 0 0 auto;
+      border: 0; background: transparent;
+      color: var(--text); cursor: pointer; transition: .18s;
     }
-    .theme-toggle:hover { border-color: var(--blue); background: rgba(20, 115, 230, .08); box-shadow: var(--shadow); }
+    .theme-toggle:hover { background: rgba(20, 115, 230, .08); }
     html[data-theme="dark"] .theme-toggle:hover { background: rgba(96, 165, 250, .14); }
     .theme-toggle svg { width: 20px; height: 20px; }
     .theme-toggle .icon-sun { display: none; }
@@ -128,7 +128,9 @@
     @media (max-width: 600px) {
       main { width: calc(100% - 24px); padding-top: 26px; }
       .topbar { align-items: flex-start; margin-bottom: 20px; }
-      .now { display: none; }
+      .city-count { display: none; }
+      .side { border: 0; background: transparent; box-shadow: none; border-radius: 0; overflow: visible; }
+      .theme-toggle { width: 46px; height: 46px; border: 1px solid var(--field-border); border-radius: 999px; background: var(--card-solid); box-shadow: var(--shadow); }
       .grid { grid-template-columns: 1fr; }
       .clock { min-height: 190px; }
       .time { margin-top: 26px; }
@@ -147,7 +149,7 @@
         <p class="sub">六座城市的实时时刻，随夏令时自动切换时区</p>
       </div>
       <div class="side">
-        <div class="now"><span>Local moment</span><b id="localTime">—</b></div>
+        <div class="city-count"><strong>6</strong><span>城市</span></div>
         <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/></svg>
@@ -203,7 +205,6 @@
         el.querySelector("[data-date]").textContent = new Intl.DateTimeFormat("zh-CN", { timeZone: item.zone, month: "short", day: "numeric", weekday: "short" }).format(now) + " · " + offsetFor(now, item.zone);
         el.querySelector("[data-status]").textContent = isDay ? "DAYLIGHT" : "NIGHT";
       });
-      document.querySelector("#localTime").textContent = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(now);
     }
     update(); setInterval(update, 1000);
 
